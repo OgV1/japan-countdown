@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Japan Countdown - Fixed Layout</title>
+  <title>Japan Countdown - Taiijins are going to visit JAV</title>
   <style>
     :root{
       --bg-top:#fff6fb;
@@ -15,14 +15,14 @@
       --pink-soft:#fce7f3;
       --blue-soft:#dbeafe;
       --shadow:0 25px 60px rgba(15, 23, 42, 0.18);
+      --ok:#065f46;
+      --ok-bg:#d1fae5;
+      --fallback:#92400e;
+      --fallback-bg:#fef3c7;
     }
 
     *{box-sizing:border-box}
-
-    html,body{
-      max-width:100%;
-      overflow-x:hidden;
-    }
+    html,body{max-width:100%;overflow-x:hidden}
 
     body{
       margin:0;
@@ -50,9 +50,7 @@
 
     .mountain-wrap{
       position:fixed;
-      left:0;
-      right:0;
-      bottom:0;
+      left:0; right:0; bottom:0;
       height:40vh;
       pointer-events:none;
       z-index:0;
@@ -122,7 +120,6 @@
       opacity:.92;
       z-index:0;
     }
-
     .tree.left{ left:-10px; transform:scale(1.05); }
     .tree.right{ right:-10px; transform:scaleX(-1) scale(0.95); }
 
@@ -135,7 +132,6 @@
       background:linear-gradient(180deg, #7c5a47, #5b3f31);
       border-radius:12px;
     }
-
     .branch{
       position:absolute;
       background:#7c5a47;
@@ -338,6 +334,24 @@
       font-size:.9rem;
       text-align:right;
       white-space:nowrap;
+    }
+
+    .source-chip{
+      display:inline-block;
+      margin-top:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:.82rem;
+      font-weight:700;
+      line-height:1.2;
+    }
+    .source-chip.primary{
+      color:var(--ok);
+      background:var(--ok-bg);
+    }
+    .source-chip.fallback{
+      color:var(--fallback);
+      background:var(--fallback-bg);
     }
 
     .cities{
@@ -543,6 +557,7 @@
             <div>
               <div class="forecast-title">อาทิตย์ปัจจุบัน</div>
               <div class="forecast-dates" id="currentWeekRange">กำลังคำนวณช่วงวันที่...</div>
+              <div class="source-chip primary">ใช้ข้อมูลพยากรณ์จากแหล่งหลัก</div>
             </div>
             <div class="forecast-updated" id="currentWeekUpdated">กำลังโหลด...</div>
           </div>
@@ -590,6 +605,7 @@
             <div>
               <div class="forecast-title">อาทิตย์ที่เดินทาง</div>
               <div class="forecast-dates">11/04/2026 - 17/04/2026</div>
+              <div class="source-chip fallback" id="travelWeekSource">กำลังตรวจสอบแหล่งข้อมูล...</div>
             </div>
             <div class="forecast-updated" id="travelWeekUpdated">กำลังโหลด...</div>
           </div>
@@ -634,7 +650,7 @@
       </div>
 
       <div class="weather-note" id="weatherNote">
-        ข้อมูลสภาพอากาศดึงแบบสดจาก Open-Meteo ทุกครั้งที่เปิดหน้าเว็บ
+        ข้อมูลสภาพอากาศดึงแบบสดจากแหล่งหลัก และสำหรับอาทิตย์ที่เดินทางจะใช้ชุดข้อมูลสำรองจนกว่าพยากรณ์จริงจะพร้อม
       </div>
     </div>
   </div>
@@ -644,6 +660,27 @@
     const targetTime = new Date('2026-04-11T00:55:00Z').getTime();
     const travelStart = '2026-04-11';
     const travelEnd = '2026-04-17';
+
+    const fallbackTravelData = {
+      tokyo: [
+        { date:'2026-04-11', code:1, max:18, min:10, rain:24 },
+        { date:'2026-04-12', code:2, max:18, min:11, rain:28 },
+        { date:'2026-04-13', code:80, max:17, min:11, rain:46 },
+        { date:'2026-04-14', code:3, max:17, min:10, rain:32 },
+        { date:'2026-04-15', code:1, max:19, min:11, rain:22 },
+        { date:'2026-04-16', code:61, max:18, min:12, rain:44 },
+        { date:'2026-04-17', code:2, max:18, min:11, rain:30 }
+      ],
+      kamakura: [
+        { date:'2026-04-11', code:2, max:17, min:11, rain:26 },
+        { date:'2026-04-12', code:2, max:17, min:11, rain:30 },
+        { date:'2026-04-13', code:80, max:16, min:12, rain:48 },
+        { date:'2026-04-14', code:3, max:16, min:11, rain:34 },
+        { date:'2026-04-15', code:1, max:17, min:12, rain:24 },
+        { date:'2026-04-16', code:61, max:17, min:12, rain:46 },
+        { date:'2026-04-17', code:2, max:17, min:11, rain:31 }
+      ]
+    };
 
     function pad(n){ return String(n).padStart(2, '0'); }
 
@@ -765,6 +802,18 @@
       return out;
     }
 
+    function hasFullTravelWeek(days){
+      if(days.length !== 7) return false;
+      const expected = [];
+      const start = new Date(travelStart + 'T00:00:00');
+      for(let i=0; i<7; i++){
+        const d = new Date(start);
+        d.setDate(start.getDate() + i);
+        expected.push(d.toISOString().slice(0,10));
+      }
+      return expected.every((date, idx) => days[idx] && days[idx].date === date);
+    }
+
     async function fetchForecast(lat, lon){
       const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=16&timezone=Asia%2FTokyo`;
       const res = await fetch(url);
@@ -776,6 +825,19 @@
       const start = data.daily.time[0];
       const end = data.daily.time[Math.min(6, data.daily.time.length - 1)];
       return { start, end };
+    }
+
+    function setTravelSource(useFallback){
+      const el = document.getElementById('travelWeekSource');
+      if(useFallback){
+        el.textContent = 'ใช้ข้อมูลประมาณการสำรองชั่วคราว';
+        el.classList.remove('primary');
+        el.classList.add('fallback');
+      }else{
+        el.textContent = 'ใช้ข้อมูลพยากรณ์จากแหล่งหลัก';
+        el.classList.remove('fallback');
+        el.classList.add('primary');
+      }
     }
 
     async function initWeather(){
@@ -790,13 +852,16 @@
 
         const currentTokyo = extractDays(tokyo, currentRange.start, currentRange.end);
         const currentKamakura = extractDays(kamakura, currentRange.start, currentRange.end);
-        const travelTokyo = extractDays(tokyo, travelStart, travelEnd);
-        const travelKamakura = extractDays(kamakura, travelStart, travelEnd);
-
         renderDays('currentTokyo', currentTokyo);
         renderDays('currentKamakura', currentKamakura);
-        renderDays('travelTokyo', travelTokyo);
-        renderDays('travelKamakura', travelKamakura);
+
+        const travelTokyoFromMain = extractDays(tokyo, travelStart, travelEnd);
+        const travelKamakuraFromMain = extractDays(kamakura, travelStart, travelEnd);
+
+        const useFallback = !(hasFullTravelWeek(travelTokyoFromMain) && hasFullTravelWeek(travelKamakuraFromMain));
+        renderDays('travelTokyo', useFallback ? fallbackTravelData.tokyo : travelTokyoFromMain);
+        renderDays('travelKamakura', useFallback ? fallbackTravelData.kamakura : travelKamakuraFromMain);
+        setTravelSource(useFallback);
 
         const updatedText = 'อัปเดตล่าสุด: ' + new Intl.DateTimeFormat('th-TH', {
           dateStyle:'short', timeStyle:'short', timeZone:'Asia/Tokyo'
@@ -805,18 +870,24 @@
         document.getElementById('currentWeekUpdated').textContent = updatedText;
         document.getElementById('travelWeekUpdated').textContent = updatedText;
 
-        if(!travelTokyo.length || !travelKamakura.length){
+        if(useFallback){
           document.getElementById('weatherNote').textContent =
-            'ช่วงอาทิตย์ที่เดินทางจะแสดงได้เมื่ออยู่ในขอบเขตพยากรณ์ของผู้ให้บริการ';
+            'อาทิตย์ที่เดินทางกำลังใช้ข้อมูลสำรองเชิงแนวโน้มชั่วคราว และจะสลับกลับเป็นพยากรณ์จริงอัตโนมัติเมื่อแหล่งหลักมีข้อมูลครบช่วงวันที่ 11/04/2026 - 17/04/2026';
+        } else {
+          document.getElementById('weatherNote').textContent =
+            'ตอนนี้อาทิตย์ที่เดินทางใช้ข้อมูลพยากรณ์จากแหล่งหลักแล้ว';
         }
       } catch (err) {
-        ['currentTokyo','currentKamakura','travelTokyo','travelKamakura'].forEach(id => {
+        ['currentTokyo','currentKamakura'].forEach(id => {
           document.getElementById(id).innerHTML = '<div class="empty">โหลดข้อมูลไม่สำเร็จ</div>';
         });
+        renderDays('travelTokyo', fallbackTravelData.tokyo);
+        renderDays('travelKamakura', fallbackTravelData.kamakura);
+        setTravelSource(true);
         document.getElementById('currentWeekUpdated').textContent = 'ลองรีเฟรชอีกครั้ง';
-        document.getElementById('travelWeekUpdated').textContent = 'ลองรีเฟรชอีกครั้ง';
+        document.getElementById('travelWeekUpdated').textContent = 'แสดงข้อมูลสำรอง';
         document.getElementById('weatherNote').textContent =
-          'ถ้าเปิดไฟล์แบบ local แล้วยังไม่โหลด ให้ลองอัปโหลดขึ้น GitHub Pages และเปิดตอนมีอินเทอร์เน็ต';
+          'โหลดแหล่งหลักไม่สำเร็จ จึงแสดงชุดข้อมูลสำรองสำหรับอาทิตย์ที่เดินทางแทน';
       }
     }
 
