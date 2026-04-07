@@ -164,7 +164,7 @@
       <div class="trip-panel" id="panel-seoul">
         <div class="badge">🌸 Seoul Countdown • Thailand Time</div>
         <h1>โซลกำลังรออยู่!</h1>
-        <p class="subtitle">นับถอยหลังสู่เที่ยวบินวันที่ <strong>xx/04/2026 เวลา xx:xx น.</strong><br></p>
+        <p class="subtitle">นับถอยหลังสู่เที่ยวบินวันที่ <strong>12/04/2026 เวลา 07:55 น.</strong><br>สมมติเวลาออกเดินทางเท่ากับทริปญี่ปุ่น</p>
         <div class="countdown">
           <div class="box"><div class="number" id="seoul-days">00</div><div class="label">วัน</div></div>
           <div class="box"><div class="number" id="seoul-hours">00</div><div class="label">ชั่วโมง</div></div>
@@ -325,7 +325,7 @@
         const useFallback=!travelCityKeys.every(key=>hasFullTravelPeriod(travelDaysFromMain[key],trip.travelStart,trip.travelEnd));
         travelCityKeys.forEach(key=>renderDays(trip.travelCities[key].container, useFallback?trip.fallbackTravelData[key]:travelDaysFromMain[key], trip.currentTimeZone));
         setTravelSource(trip.travelSourceId,useFallback);
-        const updated='อัปเดตล่าสุด: '+new Intl.DateTimeFormat('th-TH',{dateStyle:'short',timeStyle:'short',timeZone:trip.currentTimeZone}).format(new Date());
+        const updated='อัปเดตล่าสุด (TH): '+new Intl.DateTimeFormat('th-TH',{dateStyle:'short',timeStyle:'short',timeZone:trip.currentTimeZone}).format(new Date());
         document.getElementById(trip.currentUpdatedId).textContent=updated; document.getElementById(trip.travelUpdatedId).textContent=updated;
         document.getElementById(trip.weatherNoteId).textContent=useFallback?`อาทิตย์ที่เดินทางกำลังใช้ข้อมูลสำรองเชิงแนวโน้มชั่วคราว และจะสลับกลับเป็นพยากรณ์จริงอัตโนมัติเมื่อแหล่งหลักมีข้อมูลครบช่วงวันที่ ${trip.travelStart} - ${trip.travelEnd}`:'ตอนนี้อาทิตย์ที่เดินทางใช้ข้อมูลพยากรณ์จากแหล่งหลักแล้ว';
       }catch(err){
