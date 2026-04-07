@@ -325,7 +325,15 @@
         const useFallback=!travelCityKeys.every(key=>hasFullTravelPeriod(travelDaysFromMain[key],trip.travelStart,trip.travelEnd));
         travelCityKeys.forEach(key=>renderDays(trip.travelCities[key].container, useFallback?trip.fallbackTravelData[key]:travelDaysFromMain[key], trip.currentTimeZone));
         setTravelSource(trip.travelSourceId,useFallback);
-        const updated='อัปเดตล่าสุด (TH): '+new Intl.DateTimeFormat('th-TH',{dateStyle:'short',timeStyle:'short',timeZone:trip.currentTimeZone}).format(new Date());
+        const updated='อัปเดตล่าสุด: '+new Intl.DateTimeFormat('th-TH',{
+          year:'2-digit',
+          month:'numeric',
+          day:'numeric',
+          hour:'2-digit',
+          minute:'2-digit',
+          hour12:false,
+          timeZone:'Asia/Bangkok'
+        }).format(new Date());
         document.getElementById(trip.currentUpdatedId).textContent=updated; document.getElementById(trip.travelUpdatedId).textContent=updated;
         document.getElementById(trip.weatherNoteId).textContent=useFallback?`อาทิตย์ที่เดินทางกำลังใช้ข้อมูลสำรองเชิงแนวโน้มชั่วคราว และจะสลับกลับเป็นพยากรณ์จริงอัตโนมัติเมื่อแหล่งหลักมีข้อมูลครบช่วงวันที่ ${trip.travelStart} - ${trip.travelEnd}`:'ตอนนี้อาทิตย์ที่เดินทางใช้ข้อมูลพยากรณ์จากแหล่งหลักแล้ว';
       }catch(err){
