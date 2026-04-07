@@ -3,898 +3,354 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Japan Countdown - Taiijins are going to visit JAV</title>
+  <title>Trip Countdown - Japan & Seoul</title>
   <style>
     :root{
-      --bg-top:#fff6fb;
-      --bg-bottom:#eef7ff;
-      --card:rgba(255,255,255,0.78);
-      --card-border:rgba(255,255,255,0.7);
-      --text:#1f2937;
-      --muted:#6b7280;
-      --pink-soft:#fce7f3;
-      --blue-soft:#dbeafe;
-      --shadow:0 25px 60px rgba(15, 23, 42, 0.18);
-      --ok:#065f46;
-      --ok-bg:#d1fae5;
-      --fallback:#92400e;
-      --fallback-bg:#fef3c7;
+      --bg-top:#fff6fb; --bg-bottom:#eef7ff; --card:rgba(255,255,255,.78); --card-border:rgba(255,255,255,.7);
+      --text:#1f2937; --muted:#6b7280; --pink-soft:#fce7f3; --blue-soft:#dbeafe; --shadow:0 25px 60px rgba(15,23,42,.18);
+      --ok:#065f46; --ok-bg:#d1fae5; --fallback:#92400e; --fallback-bg:#fef3c7; --tab:#ffffffb8;
+      --tab-active-from:#fce7f3; --tab-active-to:#dbeafe;
     }
-
-    *{box-sizing:border-box}
-    html,body{max-width:100%;overflow-x:hidden}
-
+    *{box-sizing:border-box} html,body{max-width:100%;overflow-x:hidden}
     body{
-      margin:0;
-      min-height:100vh;
-      font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
-      color:var(--text);
+      margin:0; min-height:100vh; font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif; color:var(--text);
       background:
-        radial-gradient(circle at 15% 10%, rgba(255,192,203,0.45) 0, transparent 25%),
-        radial-gradient(circle at 85% 15%, rgba(147,197,253,0.35) 0, transparent 22%),
-        linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-      padding:24px;
-      position:relative;
-      overflow-x:hidden;
+        radial-gradient(circle at 15% 10%, rgba(255,192,203,.45) 0, transparent 25%),
+        radial-gradient(circle at 85% 15%, rgba(147,197,253,.35) 0, transparent 22%),
+        linear-gradient(180deg,var(--bg-top),var(--bg-bottom));
+      display:flex; align-items:flex-start; justify-content:center; padding:24px; position:relative; overflow-x:hidden;
     }
-
-    .sky-glow{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background:radial-gradient(circle at 50% 0%, rgba(255,255,255,0.7), transparent 38%);
-    }
-
-    .mountain-wrap{
-      position:fixed;
-      left:0; right:0; bottom:0;
-      height:40vh;
-      pointer-events:none;
-      z-index:0;
-    }
-
+    .sky-glow{position:fixed; inset:0; pointer-events:none; background:radial-gradient(circle at 50% 0%, rgba(255,255,255,.7), transparent 38%)}
+    .mountain-wrap{position:fixed; left:0; right:0; bottom:0; height:40vh; pointer-events:none; z-index:0}
     .mountain-back{
-      position:absolute;
-      left:50%;
-      transform:translateX(-50%);
-      bottom:0;
-      width:min(1080px, 96vw);
-      height:100%;
+      position:absolute; left:50%; transform:translateX(-50%); bottom:0; width:min(1080px,96vw); height:100%;
       background:
-        linear-gradient(to top, rgba(59,130,246,0.16), rgba(59,130,246,0.03)),
-        linear-gradient(135deg, transparent 49.5%, rgba(148,163,184,0.50) 50%),
-        linear-gradient(225deg, transparent 49.5%, rgba(148,163,184,0.50) 50%);
-      clip-path:polygon(50% 8%, 100% 100%, 0% 100%);
-      filter:blur(5px);
-      opacity:.45;
+        linear-gradient(to top, rgba(59,130,246,.16), rgba(59,130,246,.03)),
+        linear-gradient(135deg, transparent 49.5%, rgba(148,163,184,.50) 50%),
+        linear-gradient(225deg, transparent 49.5%, rgba(148,163,184,.50) 50%);
+      clip-path:polygon(50% 8%, 100% 100%, 0% 100%); filter:blur(5px); opacity:.45;
     }
-
     .mountain-front{
-      position:absolute;
-      left:50%;
-      transform:translateX(-50%);
-      bottom:0;
-      width:min(880px, 88vw);
-      height:94%;
-      background:linear-gradient(180deg, #dde5ee, #94a3b8);
-      clip-path:polygon(50% 4%, 100% 100%, 0% 100%);
-      opacity:.97;
-      box-shadow:0 -18px 44px rgba(255,255,255,0.22) inset;
+      position:absolute; left:50%; transform:translateX(-50%); bottom:0; width:min(880px,88vw); height:94%;
+      background:linear-gradient(180deg,#dde5ee,#94a3b8); clip-path:polygon(50% 4%,100% 100%,0% 100%); opacity:.97;
+      box-shadow:0 -18px 44px rgba(255,255,255,.22) inset;
     }
-
     .mountain-front::before{
-      content:"";
-      position:absolute;
-      left:50%;
-      top:2.5%;
-      transform:translateX(-50%);
-      width:34%;
-      height:20%;
-      background:#ffffff;
-      clip-path:polygon(50% 0%, 100% 100%, 76% 100%, 68% 72%, 58% 95%, 50% 64%, 42% 95%, 32% 72%, 24% 100%, 0% 100%);
+      content:""; position:absolute; left:50%; top:2.5%; transform:translateX(-50%); width:34%; height:20%; background:#fff;
+      clip-path:polygon(50% 0%,100% 100%,76% 100%,68% 72%,58% 95%,50% 64%,42% 95%,32% 72%,24% 100%,0% 100%);
       opacity:.98;
     }
-
     .sun{
-      position:fixed;
-      right:12%;
-      top:9%;
-      width:110px;
-      height:110px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(251,113,133,0.95) 0%, rgba(251,113,133,0.75) 45%, rgba(251,113,133,0.12) 75%, transparent 76%);
-      opacity:.9;
-      pointer-events:none;
-      z-index:0;
+      position:fixed; right:12%; top:9%; width:110px; height:110px; border-radius:50%;
+      background:radial-gradient(circle, rgba(251,113,133,.95) 0%, rgba(251,113,133,.75) 45%, rgba(251,113,133,.12) 75%, transparent 76%);
+      opacity:.9; pointer-events:none; z-index:0;
     }
-
-    .tree{
-      position:fixed;
-      bottom:0;
-      width:220px;
-      height:320px;
-      pointer-events:none;
-      opacity:.92;
-      z-index:0;
-    }
-    .tree.left{ left:-10px; transform:scale(1.05); }
-    .tree.right{ right:-10px; transform:scaleX(-1) scale(0.95); }
-
-    .trunk{
-      position:absolute;
-      bottom:0;
-      left:90px;
-      width:24px;
-      height:190px;
-      background:linear-gradient(180deg, #7c5a47, #5b3f31);
-      border-radius:12px;
-    }
-    .branch{
-      position:absolute;
-      background:#7c5a47;
-      border-radius:999px;
-      transform-origin:left center;
-    }
-    .b1{ left:96px; bottom:120px; width:90px; height:10px; transform:rotate(-24deg); }
-    .b2{ left:30px; bottom:140px; width:78px; height:10px; transform:rotate(205deg); }
-    .b3{ left:88px; bottom:165px; width:70px; height:9px; transform:rotate(-58deg); }
-    .b4{ left:48px; bottom:90px; width:64px; height:9px; transform:rotate(210deg); }
-
+    .tree{position:fixed; bottom:0; width:220px; height:320px; pointer-events:none; opacity:.92; z-index:0}
+    .tree.left{left:-10px; transform:scale(1.05)} .tree.right{right:-10px; transform:scaleX(-1) scale(.95)}
+    .trunk{position:absolute; bottom:0; left:90px; width:24px; height:190px; background:linear-gradient(180deg,#7c5a47,#5b3f31); border-radius:12px}
+    .branch{position:absolute; background:#7c5a47; border-radius:999px; transform-origin:left center}
+    .b1{left:96px; bottom:120px; width:90px; height:10px; transform:rotate(-24deg)}
+    .b2{left:30px; bottom:140px; width:78px; height:10px; transform:rotate(205deg)}
+    .b3{left:88px; bottom:165px; width:70px; height:9px; transform:rotate(-58deg)}
+    .b4{left:48px; bottom:90px; width:64px; height:9px; transform:rotate(210deg)}
     .bloom{
       position:absolute;
-      background:
-        radial-gradient(circle at 30% 30%, #fff 0 10%, transparent 11%),
-        radial-gradient(circle, #fbcfe8 0 60%, #f472b6 61% 100%);
-      border-radius:50%;
-      box-shadow:0 8px 20px rgba(244,114,182,0.22);
+      background:radial-gradient(circle at 30% 30%, #fff 0 10%, transparent 11%), radial-gradient(circle, #fbcfe8 0 60%, #f472b6 61% 100%);
+      border-radius:50%; box-shadow:0 8px 20px rgba(244,114,182,.22);
     }
-    .bl1{ width:88px; height:88px; left:120px; bottom:170px; }
-    .bl2{ width:74px; height:74px; left:40px; bottom:190px; }
-    .bl3{ width:66px; height:66px; left:108px; bottom:235px; }
-    .bl4{ width:70px; height:70px; left:12px; bottom:120px; }
-    .bl5{ width:58px; height:58px; left:145px; bottom:105px; }
-    .bl6{ width:52px; height:52px; left:78px; bottom:105px; }
-
+    .bl1{width:88px; height:88px; left:120px; bottom:170px} .bl2{width:74px; height:74px; left:40px; bottom:190px}
+    .bl3{width:66px; height:66px; left:108px; bottom:235px} .bl4{width:70px; height:70px; left:12px; bottom:120px}
+    .bl5{width:58px; height:58px; left:145px; bottom:105px} .bl6{width:52px; height:52px; left:78px; bottom:105px}
     .petal{
-      position:fixed;
-      top:-30px;
-      width:15px;
-      height:11px;
-      background:linear-gradient(135deg, #ffd7ea, #f9a8d4);
-      border-radius:65% 35% 65% 35%;
-      opacity:.78;
-      animation:fall linear infinite;
-      pointer-events:none;
-      z-index:0;
+      position:fixed; top:-30px; width:15px; height:11px; background:linear-gradient(135deg,#ffd7ea,#f9a8d4);
+      border-radius:65% 35% 65% 35%; opacity:.78; animation:fall linear infinite; pointer-events:none; z-index:0;
     }
-
-    @keyframes fall{
-      0%{ transform:translate3d(0, -5vh, 0) rotate(0deg); }
-      100%{ transform:translate3d(var(--drift), 110vh, 0) rotate(360deg); }
-    }
-
-    .page{
-      position:relative;
-      z-index:2;
-      width:min(1120px, 100%);
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-      min-width:0;
-    }
-
+    @keyframes fall{0%{transform:translate3d(0,-5vh,0) rotate(0deg)}100%{transform:translate3d(var(--drift),110vh,0) rotate(360deg)}}
+    .page{position:relative; z-index:2; width:min(1120px,100%); display:flex; flex-direction:column; gap:18px; min-width:0}
     .card{
-      background:var(--card);
-      border:1px solid var(--card-border);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
-      border-radius:30px;
-      box-shadow:var(--shadow);
-      padding:36px 28px 28px;
-      text-align:center;
-      min-width:0;
-      overflow:hidden;
+      background:var(--card); border:1px solid var(--card-border); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border-radius:30px; box-shadow:var(--shadow); padding:36px 28px 28px; text-align:center; min-width:0; overflow:hidden;
     }
-
+    .tabs{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:18px}
+    .tab-btn{
+      border:none; cursor:pointer; padding:12px 18px; border-radius:999px; font-size:1rem; font-weight:800; color:#374151;
+      background:var(--tab); box-shadow:0 8px 18px rgba(15,23,42,.06); border:1px solid rgba(255,255,255,.85); transition:.15s;
+    }
+    .tab-btn.active{background:linear-gradient(90deg,var(--tab-active-from),var(--tab-active-to)); box-shadow:0 12px 24px rgba(15,23,42,.09); transform:translateY(-1px)}
+    .trip-panel{display:none}.trip-panel.active{display:block}
     .badge{
-      display:inline-block;
-      padding:9px 16px;
-      border-radius:999px;
-      font-weight:700;
-      background:linear-gradient(90deg, var(--pink-soft), var(--blue-soft));
-      border:1px solid rgba(255,255,255,0.8);
-      box-shadow:0 8px 18px rgba(15,23,42,0.06);
-      margin-bottom:14px;
+      display:inline-block; padding:9px 16px; border-radius:999px; font-weight:700; background:linear-gradient(90deg,var(--pink-soft),var(--blue-soft));
+      border:1px solid rgba(255,255,255,.8); box-shadow:0 8px 18px rgba(15,23,42,.06); margin-bottom:14px;
     }
-
-    h1{
-      margin:0;
-      font-size:clamp(2.1rem, 5vw, 4.2rem);
-      line-height:1.08;
-    }
-
-    .subtitle{
-      margin:14px auto 0;
-      max-width:760px;
-      color:var(--muted);
-      font-size:1.03rem;
-      line-height:1.8;
-    }
-
-    .countdown{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0,1fr));
-      gap:18px;
-      margin:30px 0 22px;
-    }
-
+    h1{margin:0; font-size:clamp(2.1rem,5vw,4.2rem); line-height:1.08}
+    .subtitle{margin:14px auto 0; max-width:760px; color:var(--muted); font-size:1.03rem; line-height:1.8}
+    .countdown{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; margin:30px 0 22px}
     .box,.forecast-panel,.city-card,.weather-day{
-      background:rgba(255,255,255,0.84);
-      border:1px solid rgba(255,255,255,0.88);
-      border-radius:24px;
-      box-shadow:0 14px 28px rgba(15,23,42,0.08);
-      min-width:0;
+      background:rgba(255,255,255,.84); border:1px solid rgba(255,255,255,.88); border-radius:24px; box-shadow:0 14px 28px rgba(15,23,42,.08); min-width:0;
     }
-
-    .box{ padding:24px 14px 20px; }
-
-    .number{
-      font-size:clamp(2.2rem, 6vw, 4.2rem);
-      font-weight:800;
-      line-height:1;
-      margin-bottom:10px;
-      letter-spacing:1px;
-    }
-
-    .label{
-      color:var(--muted);
-      font-weight:700;
-      font-size:1rem;
-    }
-
-    .info{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:12px;
-      margin-top:14px;
-    }
-
-    .pill{
-      background:rgba(255,255,255,0.9);
-      border:1px solid rgba(255,255,255,0.85);
-      border-radius:999px;
-      padding:11px 15px;
-      color:#374151;
-      box-shadow:0 8px 16px rgba(15,23,42,0.05);
-      font-size:.96rem;
-    }
-
-    .done{
-      margin-top:16px;
-      font-size:1.12rem;
-      font-weight:800;
-      color:#be185d;
-      min-height:1.5em;
-    }
-
-    .section-title{
-      margin:0 0 8px;
-      font-size:clamp(1.45rem, 3vw, 2rem);
-    }
-
-    .section-sub{
-      color:var(--muted);
-      margin:0 0 18px;
-      line-height:1.7;
-    }
-
-    .forecast-stack{
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-      text-align:left;
-      min-width:0;
-    }
-
-    .forecast-panel{
-      padding:16px;
-      min-width:0;
-      overflow:hidden;
-    }
-
+    .box{padding:24px 14px 20px}
+    .number{font-size:clamp(2.2rem,6vw,4.2rem); font-weight:800; line-height:1; margin-bottom:10px; letter-spacing:1px}
+    .label{color:var(--muted); font-weight:700; font-size:1rem}
+    .info{display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:14px}
+    .pill{background:rgba(255,255,255,.9); border:1px solid rgba(255,255,255,.85); border-radius:999px; padding:11px 15px; color:#374151; box-shadow:0 8px 16px rgba(15,23,42,.05); font-size:.96rem}
+    .done{margin-top:16px; font-size:1.12rem; font-weight:800; color:#be185d; min-height:1.5em}
+    .section-title{margin:0 0 8px; font-size:clamp(1.45rem,3vw,2rem)}
+    .section-sub{color:var(--muted); margin:0 0 18px; line-height:1.7}
+    .forecast-stack{display:flex; flex-direction:column; gap:16px; text-align:left; min-width:0}
+    .forecast-panel{padding:16px; min-width:0; overflow:hidden}
     .forecast-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:12px;
-      margin-bottom:14px;
-      padding:14px;
-      border-radius:20px;
-      background:linear-gradient(135deg, rgba(252,231,243,0.85), rgba(219,234,254,0.85));
-      border:1px solid rgba(255,255,255,0.8);
+      display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:14px; padding:14px; border-radius:20px;
+      background:linear-gradient(135deg, rgba(252,231,243,.85), rgba(219,234,254,.85)); border:1px solid rgba(255,255,255,.8);
     }
-
-    .forecast-title{
-      font-size:1.18rem;
-      font-weight:800;
-    }
-
-    .forecast-dates{
-      color:var(--muted);
-      font-size:.92rem;
-      margin-top:4px;
-    }
-
-    .forecast-updated{
-      color:var(--muted);
-      font-size:.9rem;
-      text-align:right;
-      white-space:nowrap;
-    }
-
-    .source-chip{
-      display:inline-block;
-      margin-top:8px;
-      padding:7px 10px;
-      border-radius:999px;
-      font-size:.82rem;
-      font-weight:700;
-      line-height:1.2;
-    }
-    .source-chip.primary{
-      color:var(--ok);
-      background:var(--ok-bg);
-    }
-    .source-chip.fallback{
-      color:var(--fallback);
-      background:var(--fallback-bg);
-    }
-
-    .cities{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-      min-width:0;
-    }
-
-    .city-card{
-      padding:14px;
-      min-width:0;
-      overflow:hidden;
-    }
-
-    .city-hero{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:12px;
-      min-width:0;
-    }
-
+    .forecast-title{font-size:1.18rem; font-weight:800}
+    .forecast-dates{color:var(--muted); font-size:.92rem; margin-top:4px}
+    .forecast-updated{color:var(--muted); font-size:.9rem; text-align:right; white-space:nowrap}
+    .source-chip{display:inline-block; margin-top:8px; padding:7px 10px; border-radius:999px; font-size:.82rem; font-weight:700; line-height:1.2}
+    .source-chip.primary{color:var(--ok); background:var(--ok-bg)} .source-chip.fallback{color:var(--fallback); background:var(--fallback-bg)}
+    .cities{display:grid; grid-template-columns:1fr 1fr; gap:16px; min-width:0}
+    .city-card{padding:14px; min-width:0; overflow:hidden}
+    .city-hero{display:flex; align-items:center; gap:12px; margin-bottom:12px; min-width:0}
     .city-icon{
-      width:58px;
-      height:58px;
-      border-radius:18px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,0.85);
-      border:1px solid rgba(255,255,255,0.95);
-      box-shadow:0 10px 24px rgba(15,23,42,0.07);
-      flex-shrink:0;
+      width:58px; height:58px; border-radius:18px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.85);
+      border:1px solid rgba(255,255,255,.95); box-shadow:0 10px 24px rgba(15,23,42,.07); flex-shrink:0;
     }
-
-    .city-icon svg{
-      width:32px;
-      height:32px;
-      display:block;
-    }
-
-    .city-name{
-      font-size:1.14rem;
-      font-weight:800;
-      line-height:1.2;
-    }
-
-    .city-desc{
-      font-size:.88rem;
-      color:var(--muted);
-      line-height:1.45;
-      margin-top:3px;
-    }
-
-    .days{
-      display:grid;
-      grid-template-columns:repeat(7, minmax(0,1fr));
-      gap:8px;
-      min-width:0;
-      width:100%;
-    }
-
-    .weather-day{
-      padding:12px 8px;
-      text-align:center;
-      min-height:150px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      min-width:0;
-    }
-
-    .day-name{
-      font-weight:800;
-      font-size:.9rem;
-    }
-
-    .date{
-      font-size:.78rem;
-      color:var(--muted);
-    }
-
-    .icon{
-      font-size:1.55rem;
-      margin:6px 0;
-      line-height:1;
-    }
-
-    .desc{
-      font-size:.78rem;
-      line-height:1.28;
-      min-height:2.3em;
-      color:#374151;
-      word-break:break-word;
-    }
-
-    .temp{
-      margin-top:8px;
-      font-weight:800;
-      font-size:.82rem;
-      line-height:1.2;
-    }
-
-    .rain{
-      font-size:.76rem;
-      color:var(--muted);
-      margin-top:4px;
-    }
-
-    .empty{
-      color:var(--muted);
-      text-align:center;
-      padding:16px 8px;
-      grid-column:1 / -1;
-    }
-
-    .weather-note{
-      margin-top:14px;
-      color:var(--muted);
-      font-size:.92rem;
-      line-height:1.7;
-      text-align:center;
-    }
-
-    @media (max-width: 1100px){
-      .cities{ grid-template-columns:1fr; }
-      .days{ grid-template-columns:repeat(7, minmax(0,1fr)); }
-    }
-
-    @media (max-width: 900px){
-      .days{ grid-template-columns:repeat(4, minmax(0,1fr)); }
-    }
-
-    @media (max-width: 760px){
-      body{ padding:16px; }
-      .countdown{ grid-template-columns:repeat(2, minmax(0,1fr)); }
-      .card{ padding:28px 16px 22px; }
-      .tree{ width:150px; height:230px; opacity:.8; }
-      .tree.left{ left:-30px; }
-      .tree.right{ right:-30px; }
-      .sun{ width:80px; height:80px; top:7%; right:6%; }
-      .days{ grid-template-columns:repeat(2, minmax(0,1fr)); }
-      .forecast-header{ flex-direction:column; }
-      .forecast-updated{ white-space:normal; text-align:left; }
+    .city-icon svg{width:32px; height:32px; display:block}
+    .city-name{font-size:1.14rem; font-weight:800; line-height:1.2}
+    .city-desc{font-size:.88rem; color:var(--muted); line-height:1.45; margin-top:3px}
+    .days{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; min-width:0; width:100%}
+    .weather-day{padding:12px 8px; text-align:center; min-height:150px; display:flex; flex-direction:column; justify-content:space-between; min-width:0}
+    .day-name{font-weight:800; font-size:.9rem} .date{font-size:.78rem; color:var(--muted)}
+    .icon{font-size:1.55rem; margin:6px 0; line-height:1}
+    .desc{font-size:.78rem; line-height:1.28; min-height:2.3em; color:#374151; word-break:break-word}
+    .temp{margin-top:8px; font-weight:800; font-size:.82rem; line-height:1.2} .rain{font-size:.76rem; color:var(--muted); margin-top:4px}
+    .empty{color:var(--muted); text-align:center; padding:16px 8px; grid-column:1 / -1}
+    .weather-note{margin-top:14px; color:var(--muted); font-size:.92rem; line-height:1.7; text-align:center}
+    @media (max-width:1100px){.cities{grid-template-columns:1fr}.days{grid-template-columns:repeat(7,minmax(0,1fr))}}
+    @media (max-width:900px){.days{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    @media (max-width:760px){
+      body{padding:16px}.countdown{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:28px 16px 22px}
+      .tree{width:150px; height:230px; opacity:.8}.tree.left{left:-30px}.tree.right{right:-30px}.sun{width:80px; height:80px; top:7%; right:6%}
+      .days{grid-template-columns:repeat(2,minmax(0,1fr))}.forecast-header{flex-direction:column}.forecast-updated{white-space:normal; text-align:left}
     }
   </style>
 </head>
 <body>
-  <div class="sky-glow"></div>
-  <div class="sun"></div>
-
-  <div class="tree left">
-    <div class="trunk"></div>
-    <div class="branch b1"></div><div class="branch b2"></div><div class="branch b3"></div><div class="branch b4"></div>
-    <div class="bloom bl1"></div><div class="bloom bl2"></div><div class="bloom bl3"></div><div class="bloom bl4"></div><div class="bloom bl5"></div><div class="bloom bl6"></div>
-  </div>
-
-  <div class="tree right">
-    <div class="trunk"></div>
-    <div class="branch b1"></div><div class="branch b2"></div><div class="branch b3"></div><div class="branch b4"></div>
-    <div class="bloom bl1"></div><div class="bloom bl2"></div><div class="bloom bl3"></div><div class="bloom bl4"></div><div class="bloom bl5"></div><div class="bloom bl6"></div>
-  </div>
-
-  <div class="mountain-wrap">
-    <div class="mountain-back"></div>
-    <div class="mountain-front"></div>
-  </div>
+  <div class="sky-glow"></div><div class="sun"></div>
+  <div class="tree left"><div class="trunk"></div><div class="branch b1"></div><div class="branch b2"></div><div class="branch b3"></div><div class="branch b4"></div><div class="bloom bl1"></div><div class="bloom bl2"></div><div class="bloom bl3"></div><div class="bloom bl4"></div><div class="bloom bl5"></div><div class="bloom bl6"></div></div>
+  <div class="tree right"><div class="trunk"></div><div class="branch b1"></div><div class="branch b2"></div><div class="branch b3"></div><div class="branch b4"></div><div class="bloom bl1"></div><div class="bloom bl2"></div><div class="bloom bl3"></div><div class="bloom bl4"></div><div class="bloom bl5"></div><div class="bloom bl6"></div></div>
+  <div class="mountain-wrap"><div class="mountain-back"></div><div class="mountain-front"></div></div>
 
   <div class="page">
     <div class="card">
-      <div class="badge">🌸 Sakura Countdown • Thailand Time</div>
-      <h1>ญี่ปุ่นกำลังรออยู่!</h1>
-      <p class="subtitle">
-        นับถอยหลังสู่เที่ยวบินวันที่ <strong>11/04/2026 เวลา 07:55 น.</strong>
-      </p>
-
-      <div class="countdown">
-        <div class="box"><div class="number" id="days">00</div><div class="label">วัน</div></div>
-        <div class="box"><div class="number" id="hours">00</div><div class="label">ชั่วโมง</div></div>
-        <div class="box"><div class="number" id="minutes">00</div><div class="label">นาที</div></div>
-        <div class="box"><div class="number" id="seconds">00</div><div class="label">วินาที</div></div>
+      <div class="tabs">
+        <button class="tab-btn active" data-trip="japan">🇯🇵 Japan Trip</button>
+        <button class="tab-btn" data-trip="seoul">🇰🇷 Seoul Trip</button>
       </div>
 
-      <div class="info">
-        <div class="pill">เวลาเครื่องบินขึ้น: 11/04/2026 07:55 (ประเทศไทย)</div>
-        <div class="pill" id="nowText">กำลังโหลดเวลาปัจจุบัน...</div>
+      <div class="trip-panel active" id="panel-japan">
+        <div class="badge">🌸 Sakura Countdown • Thailand Time</div>
+        <h1>ญี่ปุ่นกำลังรออยู่!</h1>
+        <p class="subtitle">นับถอยหลังสู่เที่ยวบินวันที่ <strong>11/04/2026 เวลา 07:55 น.</strong></p>
+        <div class="countdown">
+          <div class="box"><div class="number" id="japan-days">00</div><div class="label">วัน</div></div>
+          <div class="box"><div class="number" id="japan-hours">00</div><div class="label">ชั่วโมง</div></div>
+          <div class="box"><div class="number" id="japan-minutes">00</div><div class="label">นาที</div></div>
+          <div class="box"><div class="number" id="japan-seconds">00</div><div class="label">วินาที</div></div>
+        </div>
+        <div class="info"><div class="pill">เวลาเครื่องบินขึ้น: 11/04/2026 07:55 (ประเทศไทย)</div><div class="pill" id="japan-nowText">กำลังโหลดเวลาปัจจุบัน...</div></div>
+        <div class="done" id="japan-doneText"></div>
       </div>
 
-      <div class="done" id="doneText"></div>
+      <div class="trip-panel" id="panel-seoul">
+        <div class="badge">🌸 Seoul Countdown • Thailand Time</div>
+        <h1>โซลกำลังรออยู่!</h1>
+        <p class="subtitle">นับถอยหลังสู่เที่ยวบินวันที่ <strong>12/04/2026 เวลา 07:55 น.</strong><br>สมมติเวลาออกเดินทางเท่ากับทริปญี่ปุ่น</p>
+        <div class="countdown">
+          <div class="box"><div class="number" id="seoul-days">00</div><div class="label">วัน</div></div>
+          <div class="box"><div class="number" id="seoul-hours">00</div><div class="label">ชั่วโมง</div></div>
+          <div class="box"><div class="number" id="seoul-minutes">00</div><div class="label">นาที</div></div>
+          <div class="box"><div class="number" id="seoul-seconds">00</div><div class="label">วินาที</div></div>
+        </div>
+        <div class="info"><div class="pill">เวลาเครื่องบินขึ้น: 12/04/2026 07:55 (ประเทศไทย)</div><div class="pill" id="seoul-nowText">กำลังโหลดเวลาปัจจุบัน...</div></div>
+        <div class="done" id="seoul-doneText"></div>
+      </div>
     </div>
 
     <div class="card">
-      <h2 class="section-title">⛅ พยากรณ์อากาศ 2 ช่วง</h2>
-      <p class="section-sub">
-        แสดงอากาศของ <strong>อาทิตย์ปัจจุบัน</strong> และ <strong>อาทิตย์ที่เดินทาง</strong> เริ่มตั้งแต่ <strong>11/04/2026</strong><br>
-        สำหรับ <strong>Tokyo</strong> และ <strong>Kamakura</strong>
-      </p>
-
-      <div class="forecast-stack">
-        <div class="forecast-panel">
-          <div class="forecast-header">
-            <div>
-              <div class="forecast-title">อาทิตย์ปัจจุบัน</div>
-              <div class="forecast-dates" id="currentWeekRange">กำลังคำนวณช่วงวันที่...</div>
-              <div class="source-chip primary">ใช้ข้อมูลพยากรณ์จากแหล่งหลัก</div>
+      <div class="trip-panel active" id="weather-japan">
+        <h2 class="section-title">⛅ พยากรณ์อากาศ 2 ช่วง • Japan</h2>
+        <p class="section-sub">แสดงอากาศของ <strong>อาทิตย์ปัจจุบัน</strong> และ <strong>อาทิตย์ที่เดินทาง</strong> เริ่มตั้งแต่ <strong>11/04/2026</strong><br>สำหรับ <strong>Tokyo</strong> และ <strong>Kamakura</strong></p>
+        <div class="forecast-stack">
+          <div class="forecast-panel">
+            <div class="forecast-header"><div><div class="forecast-title">อาทิตย์ปัจจุบัน</div><div class="forecast-dates" id="jp-currentWeekRange">กำลังคำนวณช่วงวันที่...</div><div class="source-chip primary">ใช้ข้อมูลพยากรณ์จากแหล่งหลัก</div></div><div class="forecast-updated" id="jp-currentWeekUpdated">กำลังโหลด...</div></div>
+            <div class="cities">
+              <div class="city-card"><div class="city-hero"><div class="city-icon"><svg viewBox="0 0 64 64"><path d="M32 8 L39 20 L35 20 L42 34 L38 34 L46 52 L18 52 L26 34 L22 34 L29 20 L25 20 Z" fill="#ef4444"/><path d="M18 52 H46" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/><path d="M24 40 H40 M27 28 H37 M29 16 H35" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/></svg></div><div><div class="city-name">Tokyo</div><div class="city-desc">มหานครโตเกียว</div></div></div><div class="days" id="jp-currentTokyo"><div class="empty">กำลังดึงข้อมูล...</div></div></div>
+              <div class="city-card"><div class="city-hero"><div class="city-icon"><svg viewBox="0 0 64 64"><circle cx="32" cy="22" r="10" fill="#34d399"/><path d="M20 38 Q32 30 44 38 L42 50 H22 Z" fill="#10b981"/><path d="M18 52 H46" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/><path d="M24 26 H40 M24 42 H40" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round" opacity=".7"/></svg></div><div><div class="city-name">Kamakura</div><div class="city-desc">เมืองชายทะเลและวัดเก่า</div></div></div><div class="days" id="jp-currentKamakura"><div class="empty">กำลังดึงข้อมูล...</div></div></div>
             </div>
-            <div class="forecast-updated" id="currentWeekUpdated">กำลังโหลด...</div>
           </div>
-
-          <div class="cities">
-            <div class="city-card">
-              <div class="city-hero">
-                <div class="city-icon" aria-label="Tokyo icon">
-                  <svg viewBox="0 0 64 64" aria-hidden="true">
-                    <path d="M32 8 L39 20 L35 20 L42 34 L38 34 L46 52 L18 52 L26 34 L22 34 L29 20 L25 20 Z" fill="#ef4444"/>
-                    <path d="M18 52 H46" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M24 40 H40 M27 28 H37 M29 16 H35" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <div class="city-name">Tokyo</div>
-                  <div class="city-desc">มหานครโตเกียว</div>
-                </div>
-              </div>
-              <div class="days" id="currentTokyo"><div class="empty">กำลังดึงข้อมูล...</div></div>
-            </div>
-
-            <div class="city-card">
-              <div class="city-hero">
-                <div class="city-icon" aria-label="Kamakura icon">
-                  <svg viewBox="0 0 64 64" aria-hidden="true">
-                    <circle cx="32" cy="22" r="10" fill="#34d399"/>
-                    <path d="M20 38 Q32 30 44 38 L42 50 H22 Z" fill="#10b981"/>
-                    <path d="M18 52 H46" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M24 26 H40 M24 42 H40" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
-                  </svg>
-                </div>
-                <div>
-                  <div class="city-name">Kamakura</div>
-                  <div class="city-desc">เมืองชายทะเลและวัดเก่า</div>
-                </div>
-              </div>
-              <div class="days" id="currentKamakura"><div class="empty">กำลังดึงข้อมูล...</div></div>
+          <div class="forecast-panel">
+            <div class="forecast-header"><div><div class="forecast-title">อาทิตย์ที่เดินทาง</div><div class="forecast-dates">11/04/2026 - 17/04/2026</div><div class="source-chip fallback" id="jp-travelWeekSource">กำลังตรวจสอบแหล่งข้อมูล...</div></div><div class="forecast-updated" id="jp-travelWeekUpdated">กำลังโหลด...</div></div>
+            <div class="cities">
+              <div class="city-card"><div class="city-hero"><div class="city-icon"><svg viewBox="0 0 64 64"><path d="M32 8 L39 20 L35 20 L42 34 L38 34 L46 52 L18 52 L26 34 L22 34 L29 20 L25 20 Z" fill="#ef4444"/><path d="M18 52 H46" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/><path d="M24 40 H40 M27 28 H37 M29 16 H35" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/></svg></div><div><div class="city-name">Tokyo</div><div class="city-desc">ช่วงเริ่มทริปในญี่ปุ่น</div></div></div><div class="days" id="jp-travelTokyo"><div class="empty">กำลังดึงข้อมูล...</div></div></div>
+              <div class="city-card"><div class="city-hero"><div class="city-icon"><svg viewBox="0 0 64 64"><circle cx="32" cy="22" r="10" fill="#34d399"/><path d="M20 38 Q32 30 44 38 L42 50 H22 Z" fill="#10b981"/><path d="M18 52 H46" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/><path d="M24 26 H40 M24 42 H40" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round" opacity=".7"/></svg></div><div><div class="city-name">Kamakura</div><div class="city-desc">พยากรณ์ช่วงอาทิตย์เดินทาง</div></div></div><div class="days" id="jp-travelKamakura"><div class="empty">กำลังดึงข้อมูล...</div></div></div>
             </div>
           </div>
         </div>
-
-        <div class="forecast-panel">
-          <div class="forecast-header">
-            <div>
-              <div class="forecast-title">อาทิตย์ที่เดินทาง</div>
-              <div class="forecast-dates">11/04/2026 - 17/04/2026</div>
-              <div class="source-chip fallback" id="travelWeekSource">กำลังตรวจสอบแหล่งข้อมูล...</div>
-            </div>
-            <div class="forecast-updated" id="travelWeekUpdated">กำลังโหลด...</div>
-          </div>
-
-          <div class="cities">
-            <div class="city-card">
-              <div class="city-hero">
-                <div class="city-icon" aria-label="Tokyo icon">
-                  <svg viewBox="0 0 64 64" aria-hidden="true">
-                    <path d="M32 8 L39 20 L35 20 L42 34 L38 34 L46 52 L18 52 L26 34 L22 34 L29 20 L25 20 Z" fill="#ef4444"/>
-                    <path d="M18 52 H46" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M24 40 H40 M27 28 H37 M29 16 H35" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <div class="city-name">Tokyo</div>
-                  <div class="city-desc">ช่วงเริ่มทริปในญี่ปุ่น</div>
-                </div>
-              </div>
-              <div class="days" id="travelTokyo"><div class="empty">กำลังดึงข้อมูล...</div></div>
-            </div>
-
-            <div class="city-card">
-              <div class="city-hero">
-                <div class="city-icon" aria-label="Kamakura icon">
-                  <svg viewBox="0 0 64 64" aria-hidden="true">
-                    <circle cx="32" cy="22" r="10" fill="#34d399"/>
-                    <path d="M20 38 Q32 30 44 38 L42 50 H22 Z" fill="#10b981"/>
-                    <path d="M18 52 H46" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M24 26 H40 M24 42 H40" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
-                  </svg>
-                </div>
-                <div>
-                  <div class="city-name">Kamakura</div>
-                  <div class="city-desc">พยากรณ์ช่วงอาทิตย์เดินทาง</div>
-                </div>
-              </div>
-              <div class="days" id="travelKamakura"><div class="empty">กำลังดึงข้อมูล...</div></div>
-            </div>
-          </div>
-        </div>
+        <div class="weather-note" id="jp-weatherNote">ข้อมูลสภาพอากาศดึงแบบสดจากแหล่งหลัก และสำหรับอาทิตย์ที่เดินทางจะใช้ชุดข้อมูลสำรองจนกว่าพยากรณ์จริงจะพร้อม</div>
       </div>
 
-      <div class="weather-note" id="weatherNote">
-        ข้อมูลสภาพอากาศดึงแบบสดจากแหล่งหลัก และสำหรับอาทิตย์ที่เดินทางจะใช้ชุดข้อมูลสำรองจนกว่าพยากรณ์จริงจะพร้อม
+      <div class="trip-panel" id="weather-seoul">
+        <h2 class="section-title">⛅ พยากรณ์อากาศ 2 ช่วง • Seoul</h2>
+        <p class="section-sub">แสดงอากาศของ <strong>อาทิตย์ปัจจุบัน</strong> และ <strong>อาทิตย์ที่เดินทาง</strong> เริ่มตั้งแต่ <strong>12/04/2026</strong><br>สำหรับ <strong>Seoul</strong> และ <strong>Incheon</strong></p>
+        <div class="forecast-stack">
+          <div class="forecast-panel">
+            <div class="forecast-header"><div><div class="forecast-title">อาทิตย์ปัจจุบัน</div><div class="forecast-dates" id="kr-currentWeekRange">กำลังคำนวณช่วงวันที่...</div><div class="source-chip primary">ใช้ข้อมูลพยากรณ์จากแหล่งหลัก</div></div><div class="forecast-updated" id="kr-currentWeekUpdated">กำลังโหลด...</div></div>
+            <div class="cities">
+              <div class="city-card"><div class="city-hero"><div class="city-icon"><svg viewBox="0 0 64 64"><path d="M14 50 H50" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/><path d="M18 50 V28 H46 V50" fill="#60a5fa" stroke="#1f2937" stroke-width="2.5"/><path d="M22 28 V18 H42 V28" fill="#93c5fd" stroke="#1f2937" stroke-width="2.5"/><path d="M28 22 H36 M28 34 H36" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/></svg></div><div><div class="city-name">Seoul</div><div class="city-desc">เมืองหลวงของเกาหลีใต้</div></div></div><div class="days" id="kr-currentSeoul"><div class="empty">กำลังดึงข้อมูล...</div></div></div>
+              <div class="city-card"><div class="city-hero"><div class="city-icon"><svg viewBox="0 0 64 64"><path d="M10 48 Q24 40 38 48 Q46 52 54 48" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round"/><path d="M32 16 L38 28 L34 28 L40 40 L24 40 L30 28 L26 28 Z" fill="#10b981"/><path d="M16 48 H48" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/></svg></div><div><div class="city-name">Incheon</div><div class="city-desc">เขตสนามบินและเมืองชายฝั่ง</div></div></div><div class="days" id="kr-currentIncheon"><div class="empty">กำลังดึงข้อมูล...</div></div></div>
+            </div>
+          </div>
+          <div class="forecast-panel">
+            <div class="forecast-header"><div><div class="forecast-title">อาทิตย์ที่เดินทาง</div><div class="forecast-dates">12/04/2026 - 16/04/2026</div><div class="source-chip fallback" id="kr-travelWeekSource">กำลังตรวจสอบแหล่งข้อมูล...</div></div><div class="forecast-updated" id="kr-travelWeekUpdated">กำลังโหลด...</div></div>
+            <div class="cities">
+              <div class="city-card"><div class="city-hero"><div class="city-icon"><svg viewBox="0 0 64 64"><path d="M14 50 H50" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/><path d="M18 50 V28 H46 V50" fill="#60a5fa" stroke="#1f2937" stroke-width="2.5"/><path d="M22 28 V18 H42 V28" fill="#93c5fd" stroke="#1f2937" stroke-width="2.5"/><path d="M28 22 H36 M28 34 H36" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/></svg></div><div><div class="city-name">Seoul</div><div class="city-desc">ช่วงเริ่มทริปที่โซล</div></div></div><div class="days" id="kr-travelSeoul"><div class="empty">กำลังดึงข้อมูล...</div></div></div>
+              <div class="city-card"><div class="city-hero"><div class="city-icon"><svg viewBox="0 0 64 64"><path d="M10 48 Q24 40 38 48 Q46 52 54 48" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round"/><path d="M32 16 L38 28 L34 28 L40 40 L24 40 L30 28 L26 28 Z" fill="#10b981"/><path d="M16 48 H48" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/></svg></div><div><div class="city-name">Incheon</div><div class="city-desc">พยากรณ์ช่วงอาทิตย์เดินทาง</div></div></div><div class="days" id="kr-travelIncheon"><div class="empty">กำลังดึงข้อมูล...</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="weather-note" id="kr-weatherNote">ข้อมูลสภาพอากาศดึงแบบสดจากแหล่งหลัก และสำหรับอาทิตย์ที่เดินทางจะใช้ชุดข้อมูลสำรองจนกว่าพยากรณ์จริงจะพร้อม</div>
       </div>
     </div>
   </div>
 
   <script>
-    const bangkokTZ = 'Asia/Bangkok';
-    const targetTime = new Date('2026-04-11T00:55:00Z').getTime();
-    const travelStart = '2026-04-11';
-    const travelEnd = '2026-04-17';
-
-    const fallbackTravelData = {
-      tokyo: [
-        { date:'2026-04-11', code:1, max:18, min:10, rain:24 },
-        { date:'2026-04-12', code:2, max:18, min:11, rain:28 },
-        { date:'2026-04-13', code:80, max:17, min:11, rain:46 },
-        { date:'2026-04-14', code:3, max:17, min:10, rain:32 },
-        { date:'2026-04-15', code:1, max:19, min:11, rain:22 },
-        { date:'2026-04-16', code:61, max:18, min:12, rain:44 },
-        { date:'2026-04-17', code:2, max:18, min:11, rain:30 }
-      ],
-      kamakura: [
-        { date:'2026-04-11', code:2, max:17, min:11, rain:26 },
-        { date:'2026-04-12', code:2, max:17, min:11, rain:30 },
-        { date:'2026-04-13', code:80, max:16, min:12, rain:48 },
-        { date:'2026-04-14', code:3, max:16, min:11, rain:34 },
-        { date:'2026-04-15', code:1, max:17, min:12, rain:24 },
-        { date:'2026-04-16', code:61, max:17, min:12, rain:46 },
-        { date:'2026-04-17', code:2, max:17, min:11, rain:31 }
-      ]
+    const bangkokTZ='Asia/Bangkok';
+    const trips={
+      japan:{
+        targetTime:new Date('2026-04-11T00:55:00Z').getTime(), currentTimeZone:'Asia/Tokyo', travelStart:'2026-04-11', travelEnd:'2026-04-17',
+        currentCities:{tokyo:{lat:35.6764,lon:139.6500,container:'jp-currentTokyo'},kamakura:{lat:35.3192,lon:139.5467,container:'jp-currentKamakura'}},
+        travelCities:{tokyo:{lat:35.6764,lon:139.6500,container:'jp-travelTokyo'},kamakura:{lat:35.3192,lon:139.5467,container:'jp-travelKamakura'}},
+        currentRangeId:'jp-currentWeekRange', currentUpdatedId:'jp-currentWeekUpdated', travelUpdatedId:'jp-travelWeekUpdated', travelSourceId:'jp-travelWeekSource', weatherNoteId:'jp-weatherNote',
+        fallbackTravelData:{
+          tokyo:[{date:'2026-04-11',code:1,max:18,min:10,rain:24},{date:'2026-04-12',code:2,max:18,min:11,rain:28},{date:'2026-04-13',code:80,max:17,min:11,rain:46},{date:'2026-04-14',code:3,max:17,min:10,rain:32},{date:'2026-04-15',code:1,max:19,min:11,rain:22},{date:'2026-04-16',code:61,max:18,min:12,rain:44},{date:'2026-04-17',code:2,max:18,min:11,rain:30}],
+          kamakura:[{date:'2026-04-11',code:2,max:17,min:11,rain:26},{date:'2026-04-12',code:2,max:17,min:11,rain:30},{date:'2026-04-13',code:80,max:16,min:12,rain:48},{date:'2026-04-14',code:3,max:16,min:11,rain:34},{date:'2026-04-15',code:1,max:17,min:12,rain:24},{date:'2026-04-16',code:61,max:17,min:12,rain:46},{date:'2026-04-17',code:2,max:17,min:11,rain:31}]
+        }
+      },
+      seoul:{
+        targetTime:new Date('2026-04-12T00:55:00Z').getTime(), currentTimeZone:'Asia/Seoul', travelStart:'2026-04-12', travelEnd:'2026-04-16',
+        currentCities:{seoul:{lat:37.5665,lon:126.9780,container:'kr-currentSeoul'},incheon:{lat:37.4563,lon:126.7052,container:'kr-currentIncheon'}},
+        travelCities:{seoul:{lat:37.5665,lon:126.9780,container:'kr-travelSeoul'},incheon:{lat:37.4563,lon:126.7052,container:'kr-travelIncheon'}},
+        currentRangeId:'kr-currentWeekRange', currentUpdatedId:'kr-currentWeekUpdated', travelUpdatedId:'kr-travelWeekUpdated', travelSourceId:'kr-travelWeekSource', weatherNoteId:'kr-weatherNote',
+        fallbackTravelData:{
+          seoul:[{date:'2026-04-12',code:1,max:17,min:7,rain:20},{date:'2026-04-13',code:2,max:17,min:8,rain:28},{date:'2026-04-14',code:3,max:16,min:8,rain:34},{date:'2026-04-15',code:61,max:15,min:9,rain:42},{date:'2026-04-16',code:2,max:17,min:8,rain:27}],
+          incheon:[{date:'2026-04-12',code:2,max:15,min:7,rain:24},{date:'2026-04-13',code:2,max:15,min:8,rain:30},{date:'2026-04-14',code:3,max:14,min:8,rain:36},{date:'2026-04-15',code:61,max:14,min:9,rain:44},{date:'2026-04-16',code:2,max:15,min:8,rain:29}]
+        }
+      }
     };
 
-    function pad(n){ return String(n).padStart(2, '0'); }
-
-    function formatBangkok(date){
-      return new Intl.DateTimeFormat('th-TH', {
-        timeZone: bangkokTZ,
-        dateStyle: 'full',
-        timeStyle: 'medium'
-      }).format(date);
+    function pad(n){return String(n).padStart(2,'0')}
+    function formatBangkok(date){return new Intl.DateTimeFormat('th-TH',{timeZone:bangkokTZ,dateStyle:'full',timeStyle:'medium'}).format(date)}
+    function formatRange(start,end,timeZone){
+      const s=new Date(start+'T00:00:00'), e=new Date(end+'T00:00:00');
+      const fmt=new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'2-digit',year:'numeric',timeZone});
+      return fmt.format(s)+' - '+fmt.format(e);
     }
-
-    function formatRange(start, end){
-      const s = new Date(start + 'T00:00:00');
-      const e = new Date(end + 'T00:00:00');
-      const fmt = new Intl.DateTimeFormat('en-GB', {
-        day:'2-digit', month:'2-digit', year:'numeric', timeZone:'Asia/Tokyo'
-      });
-      return fmt.format(s) + ' - ' + fmt.format(e);
+    function updateCountdown(prefix,targetTime){
+      const now=new Date(); document.getElementById(prefix+'-nowText').textContent='เวลาปัจจุบันในไทย: '+formatBangkok(now);
+      let diff=targetTime-now.getTime();
+      if(diff<=0){['days','hours','minutes','seconds'].forEach(k=>document.getElementById(prefix+'-'+k).textContent='00'); document.getElementById(prefix+'-doneText').textContent='ถึงเวลาออกเดินทางแล้ว ✈️🌸'; return;}
+      const total=Math.floor(diff/1000);
+      document.getElementById(prefix+'-days').textContent=pad(Math.floor(total/86400));
+      document.getElementById(prefix+'-hours').textContent=pad(Math.floor((total%86400)/3600));
+      document.getElementById(prefix+'-minutes').textContent=pad(Math.floor((total%3600)/60));
+      document.getElementById(prefix+'-seconds').textContent=pad(total%60);
+      document.getElementById(prefix+'-doneText').textContent='';
     }
-
-    function updateCountdown(){
-      const now = new Date();
-      document.getElementById('nowText').textContent = 'เวลาปัจจุบันในไทย: ' + formatBangkok(now);
-      let diff = targetTime - now.getTime();
-
-      if(diff <= 0){
-        document.getElementById('days').textContent = '00';
-        document.getElementById('hours').textContent = '00';
-        document.getElementById('minutes').textContent = '00';
-        document.getElementById('seconds').textContent = '00';
-        document.getElementById('doneText').textContent = 'ถึงเวลาออกเดินทางแล้ว ✈️🌸';
-        return;
-      }
-
-      const totalSeconds = Math.floor(diff / 1000);
-      document.getElementById('days').textContent = pad(Math.floor(totalSeconds / 86400));
-      document.getElementById('hours').textContent = pad(Math.floor((totalSeconds % 86400) / 3600));
-      document.getElementById('minutes').textContent = pad(Math.floor((totalSeconds % 3600) / 60));
-      document.getElementById('seconds').textContent = pad(totalSeconds % 60);
-      document.getElementById('doneText').textContent = '';
-    }
-
     function createPetals(count){
-      for(let i=0; i<count; i++){
-        const petal = document.createElement('div');
-        petal.className = 'petal';
-        petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.animationDuration = (8 + Math.random() * 10) + 's';
-        petal.style.animationDelay = (-Math.random() * 18) + 's';
-        petal.style.setProperty('--drift', (Math.random() * 220 - 110) + 'px');
-        petal.style.opacity = 0.35 + Math.random() * 0.5;
-        const size = 8 + Math.random() * 12;
-        petal.style.width = size + 'px';
-        petal.style.height = (size * 0.72) + 'px';
-        document.body.appendChild(petal);
+      for(let i=0;i<count;i++){
+        const p=document.createElement('div'); p.className='petal'; p.style.left=Math.random()*100+'vw';
+        p.style.animationDuration=(8+Math.random()*10)+'s'; p.style.animationDelay=(-Math.random()*18)+'s';
+        p.style.setProperty('--drift',(Math.random()*220-110)+'px'); p.style.opacity=0.35+Math.random()*0.5;
+        const size=8+Math.random()*12; p.style.width=size+'px'; p.style.height=(size*0.72)+'px'; document.body.appendChild(p);
       }
     }
-
     function weatherCodeToText(code){
-      const map = {
-        0:['☀️','ฟ้าโปร่ง'],1:['🌤️','แดดออกเป็นช่วง'],2:['⛅','มีเมฆบางส่วน'],3:['☁️','เมฆมาก'],
-        45:['🌫️','มีหมอก'],48:['🌫️','หมอกจัด'],51:['🌦️','ฝนปรอยเล็กน้อย'],53:['🌦️','ฝนปรอย'],
-        55:['🌧️','ฝนปรอยค่อนข้างหนัก'],61:['🌦️','ฝนเล็กน้อย'],63:['🌧️','ฝนปานกลาง'],65:['🌧️','ฝนหนัก'],
-        66:['🌨️','ฝนเยือกแข็งเบา'],67:['🌨️','ฝนเยือกแข็งหนัก'],71:['🌨️','หิมะเล็กน้อย'],73:['🌨️','หิมะปานกลาง'],
-        75:['❄️','หิมะหนัก'],77:['❄️','เกล็ดหิมะ'],80:['🌦️','ฝนเป็นช่วง'],81:['🌧️','ฝนเป็นช่วงปานกลาง'],
-        82:['⛈️','ฝนเป็นช่วงหนัก'],85:['🌨️','หิมะโปรยเป็นช่วง'],86:['❄️','หิมะตกหนักเป็นช่วง'],
-        95:['⛈️','พายุฝนฟ้าคะนอง'],96:['⛈️','พายุฝนและลูกเห็บ'],99:['⛈️','พายุรุนแรง']
+      const map={0:['☀️','ฟ้าโปร่ง'],1:['🌤️','แดดออกเป็นช่วง'],2:['⛅','มีเมฆบางส่วน'],3:['☁️','เมฆมาก'],45:['🌫️','มีหมอก'],48:['🌫️','หมอกจัด'],51:['🌦️','ฝนปรอยเล็กน้อย'],53:['🌦️','ฝนปรอย'],55:['🌧️','ฝนปรอยค่อนข้างหนัก'],61:['🌦️','ฝนเล็กน้อย'],63:['🌧️','ฝนปานกลาง'],65:['🌧️','ฝนหนัก'],66:['🌨️','ฝนเยือกแข็งเบา'],67:['🌨️','ฝนเยือกแข็งหนัก'],71:['🌨️','หิมะเล็กน้อย'],73:['🌨️','หิมะปานกลาง'],75:['❄️','หิมะหนัก'],77:['❄️','เกล็ดหิมะ'],80:['🌦️','ฝนเป็นช่วง'],81:['🌧️','ฝนเป็นช่วงปานกลาง'],82:['⛈️','ฝนเป็นช่วงหนัก'],85:['🌨️','หิมะโปรยเป็นช่วง'],86:['❄️','หิมะตกหนักเป็นช่วง'],95:['⛈️','พายุฝนฟ้าคะนอง'],96:['⛈️','พายุฝนและลูกเห็บ'],99:['⛈️','พายุรุนแรง']};
+      return map[code]||['🌈','สภาพอากาศไม่ระบุ'];
+    }
+    function formatDay(dateStr,timeZone){
+      const d=new Date(dateStr+'T00:00:00');
+      return {
+        dayName:new Intl.DateTimeFormat('en-US',{weekday:'short',timeZone}).format(d),
+        dateText:new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'2-digit',timeZone}).format(d)
       };
-      return map[code] || ['🌈','สภาพอากาศไม่ระบุ'];
     }
-
-    function formatDay(dateStr){
-      const d = new Date(dateStr + 'T00:00:00');
-      const dayName = new Intl.DateTimeFormat('en-US', { weekday:'short', timeZone:'Asia/Tokyo' }).format(d);
-      const dateText = new Intl.DateTimeFormat('en-GB', { day:'2-digit', month:'2-digit', timeZone:'Asia/Tokyo' }).format(d);
-      return { dayName, dateText };
-    }
-
-    function renderDays(containerId, days){
-      const container = document.getElementById(containerId);
-      if(!days.length){
-        container.innerHTML = '<div class="empty">ช่วงนี้ยังไม่มีข้อมูลพยากรณ์</div>';
-        return;
-      }
-
-      container.innerHTML = days.map(day => {
-        const parts = formatDay(day.date);
-        const info = weatherCodeToText(day.code);
-        return `
-          <div class="weather-day">
-            <div>
-              <div class="day-name">${parts.dayName}</div>
-              <div class="date">${parts.dateText}</div>
-            </div>
-            <div class="icon">${info[0]}</div>
-            <div class="desc">${info[1]}</div>
-            <div>
-              <div class="temp">${Math.round(day.max)}° / ${Math.round(day.min)}°</div>
-              <div class="rain">ฝน ${Math.round(day.rain || 0)}%</div>
-            </div>
-          </div>`;
+    function renderDays(containerId,days,timeZone){
+      const c=document.getElementById(containerId);
+      if(!days.length){c.innerHTML='<div class="empty">ช่วงนี้ยังไม่มีข้อมูลพยากรณ์</div>'; return;}
+      c.innerHTML=days.map(day=>{
+        const parts=formatDay(day.date,timeZone), info=weatherCodeToText(day.code);
+        return `<div class="weather-day"><div><div class="day-name">${parts.dayName}</div><div class="date">${parts.dateText}</div></div><div class="icon">${info[0]}</div><div class="desc">${info[1]}</div><div><div class="temp">${Math.round(day.max)}° / ${Math.round(day.min)}°</div><div class="rain">ฝน ${Math.round(day.rain||0)}%</div></div></div>`;
       }).join('');
     }
-
-    function extractDays(data, startDate, endDate){
-      const out = [];
-      for(let i = 0; i < data.daily.time.length; i++){
-        const date = data.daily.time[i];
-        if(date >= startDate && date <= endDate){
-          out.push({
-            date,
-            code: data.daily.weather_code[i],
-            max: data.daily.temperature_2m_max[i],
-            min: data.daily.temperature_2m_min[i],
-            rain: data.daily.precipitation_probability_max ? data.daily.precipitation_probability_max[i] : 0
-          });
-        }
-      }
+    function extractDays(data,startDate,endDate){
+      const out=[]; for(let i=0;i<data.daily.time.length;i++){const date=data.daily.time[i]; if(date>=startDate&&date<=endDate){out.push({date,code:data.daily.weather_code[i],max:data.daily.temperature_2m_max[i],min:data.daily.temperature_2m_min[i],rain:data.daily.precipitation_probability_max?data.daily.precipitation_probability_max[i]:0});}}
       return out;
     }
-
-    function hasFullTravelWeek(days){
-      if(days.length !== 7) return false;
-      const expected = [];
-      const start = new Date(travelStart + 'T00:00:00');
-      for(let i=0; i<7; i++){
-        const d = new Date(start);
-        d.setDate(start.getDate() + i);
-        expected.push(d.toISOString().slice(0,10));
-      }
-      return expected.every((date, idx) => days[idx] && days[idx].date === date);
+    function hasFullTravelPeriod(days,startDate,endDate){
+      const start=new Date(startDate+'T00:00:00'), end=new Date(endDate+'T00:00:00'), expected=[];
+      for(let d=new Date(start); d<=end; d.setDate(d.getDate()+1)){expected.push(new Date(d).toISOString().slice(0,10))}
+      if(days.length!==expected.length) return false;
+      return expected.every((date,idx)=>days[idx]&&days[idx].date===date);
     }
-
-    async function fetchForecast(lat, lon){
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=16&timezone=Asia%2FTokyo`;
-      const res = await fetch(url);
-      if(!res.ok) throw new Error('โหลดข้อมูลอากาศไม่สำเร็จ');
-      return await res.json();
+    async function fetchForecast(lat,lon,timeZone){
+      const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=16&timezone=${encodeURIComponent(timeZone)}`;
+      const res=await fetch(url); if(!res.ok) throw new Error('โหลดข้อมูลอากาศไม่สำเร็จ'); return await res.json();
     }
-
-    function getCurrentWeekRange(data){
-      const start = data.daily.time[0];
-      const end = data.daily.time[Math.min(6, data.daily.time.length - 1)];
-      return { start, end };
+    function getCurrentWeekRange(data){return {start:data.daily.time[0], end:data.daily.time[Math.min(6,data.daily.time.length-1)]}}
+    function setTravelSource(elId,useFallback){
+      const el=document.getElementById(elId);
+      if(useFallback){el.textContent='ใช้ข้อมูลประมาณการสำรองชั่วคราว'; el.classList.remove('primary'); el.classList.add('fallback');}
+      else {el.textContent='ใช้ข้อมูลพยากรณ์จากแหล่งหลัก'; el.classList.remove('fallback'); el.classList.add('primary');}
     }
-
-    function setTravelSource(useFallback){
-      const el = document.getElementById('travelWeekSource');
-      if(useFallback){
-        el.textContent = 'ใช้ข้อมูลประมาณการสำรองชั่วคราว';
-        el.classList.remove('primary');
-        el.classList.add('fallback');
-      }else{
-        el.textContent = 'ใช้ข้อมูลพยากรณ์จากแหล่งหลัก';
-        el.classList.remove('fallback');
-        el.classList.add('primary');
-      }
-    }
-
-    async function initWeather(){
+    async function initTripWeather(tripKey){
+      const trip=trips[tripKey], currentCityKeys=Object.keys(trip.currentCities);
       try{
-        const [tokyo, kamakura] = await Promise.all([
-          fetchForecast(35.6764, 139.6500),
-          fetchForecast(35.3192, 139.5467)
-        ]);
-
-        const currentRange = getCurrentWeekRange(tokyo);
-        document.getElementById('currentWeekRange').textContent = formatRange(currentRange.start, currentRange.end);
-
-        const currentTokyo = extractDays(tokyo, currentRange.start, currentRange.end);
-        const currentKamakura = extractDays(kamakura, currentRange.start, currentRange.end);
-        renderDays('currentTokyo', currentTokyo);
-        renderDays('currentKamakura', currentKamakura);
-
-        const travelTokyoFromMain = extractDays(tokyo, travelStart, travelEnd);
-        const travelKamakuraFromMain = extractDays(kamakura, travelStart, travelEnd);
-
-        const useFallback = !(hasFullTravelWeek(travelTokyoFromMain) && hasFullTravelWeek(travelKamakuraFromMain));
-        renderDays('travelTokyo', useFallback ? fallbackTravelData.tokyo : travelTokyoFromMain);
-        renderDays('travelKamakura', useFallback ? fallbackTravelData.kamakura : travelKamakuraFromMain);
-        setTravelSource(useFallback);
-
-        const updatedText = 'อัปเดตล่าสุด: ' + new Intl.DateTimeFormat('th-TH', {
-          dateStyle:'short', timeStyle:'short', timeZone:'Asia/Tokyo'
-        }).format(new Date());
-
-        document.getElementById('currentWeekUpdated').textContent = updatedText;
-        document.getElementById('travelWeekUpdated').textContent = updatedText;
-
-        if(useFallback){
-          document.getElementById('weatherNote').textContent =
-            'อาทิตย์ที่เดินทางกำลังใช้ข้อมูลสำรองเชิงแนวโน้มชั่วคราว และจะสลับกลับเป็นพยากรณ์จริงอัตโนมัติเมื่อแหล่งหลักมีข้อมูลครบช่วงวันที่ 11/04/2026 - 17/04/2026';
-        } else {
-          document.getElementById('weatherNote').textContent =
-            'ตอนนี้อาทิตย์ที่เดินทางใช้ข้อมูลพยากรณ์จากแหล่งหลักแล้ว';
-        }
-      } catch (err) {
-        ['currentTokyo','currentKamakura'].forEach(id => {
-          document.getElementById(id).innerHTML = '<div class="empty">โหลดข้อมูลไม่สำเร็จ</div>';
-        });
-        renderDays('travelTokyo', fallbackTravelData.tokyo);
-        renderDays('travelKamakura', fallbackTravelData.kamakura);
-        setTravelSource(true);
-        document.getElementById('currentWeekUpdated').textContent = 'ลองรีเฟรชอีกครั้ง';
-        document.getElementById('travelWeekUpdated').textContent = 'แสดงข้อมูลสำรอง';
-        document.getElementById('weatherNote').textContent =
-          'โหลดแหล่งหลักไม่สำเร็จ จึงแสดงชุดข้อมูลสำรองสำหรับอาทิตย์ที่เดินทางแทน';
+        const currentDataArr=await Promise.all(currentCityKeys.map(key=>fetchForecast(trip.currentCities[key].lat,trip.currentCities[key].lon,trip.currentTimeZone)));
+        const currentRange=getCurrentWeekRange(currentDataArr[0]);
+        document.getElementById(trip.currentRangeId).textContent=formatRange(currentRange.start,currentRange.end,trip.currentTimeZone);
+        currentCityKeys.forEach((key,idx)=>renderDays(trip.currentCities[key].container, extractDays(currentDataArr[idx],currentRange.start,currentRange.end), trip.currentTimeZone));
+        const travelCityKeys=Object.keys(trip.travelCities), travelDaysFromMain={};
+        travelCityKeys.forEach((key,idx)=>travelDaysFromMain[key]=extractDays(currentDataArr[idx],trip.travelStart,trip.travelEnd));
+        const useFallback=!travelCityKeys.every(key=>hasFullTravelPeriod(travelDaysFromMain[key],trip.travelStart,trip.travelEnd));
+        travelCityKeys.forEach(key=>renderDays(trip.travelCities[key].container, useFallback?trip.fallbackTravelData[key]:travelDaysFromMain[key], trip.currentTimeZone));
+        setTravelSource(trip.travelSourceId,useFallback);
+        const updated='อัปเดตล่าสุด: '+new Intl.DateTimeFormat('th-TH',{dateStyle:'short',timeStyle:'short',timeZone:trip.currentTimeZone}).format(new Date());
+        document.getElementById(trip.currentUpdatedId).textContent=updated; document.getElementById(trip.travelUpdatedId).textContent=updated;
+        document.getElementById(trip.weatherNoteId).textContent=useFallback?`อาทิตย์ที่เดินทางกำลังใช้ข้อมูลสำรองเชิงแนวโน้มชั่วคราว และจะสลับกลับเป็นพยากรณ์จริงอัตโนมัติเมื่อแหล่งหลักมีข้อมูลครบช่วงวันที่ ${trip.travelStart} - ${trip.travelEnd}`:'ตอนนี้อาทิตย์ที่เดินทางใช้ข้อมูลพยากรณ์จากแหล่งหลักแล้ว';
+      }catch(err){
+        currentCityKeys.forEach(key=>document.getElementById(trip.currentCities[key].container).innerHTML='<div class="empty">โหลดข้อมูลไม่สำเร็จ</div>');
+        Object.keys(trip.travelCities).forEach(key=>renderDays(trip.travelCities[key].container, trip.fallbackTravelData[key], trip.currentTimeZone));
+        setTravelSource(trip.travelSourceId,true);
+        document.getElementById(trip.currentUpdatedId).textContent='ลองรีเฟรชอีกครั้ง';
+        document.getElementById(trip.travelUpdatedId).textContent='แสดงข้อมูลสำรอง';
+        document.getElementById(trip.weatherNoteId).textContent='โหลดแหล่งหลักไม่สำเร็จ จึงแสดงชุดข้อมูลสำรองสำหรับอาทิตย์ที่เดินทางแทน';
       }
     }
-
+    function setupTabs(){
+      const buttons=document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn=>btn.addEventListener('click',()=>{
+        const trip=btn.dataset.trip;
+        buttons.forEach(b=>b.classList.toggle('active',b===btn));
+        document.querySelectorAll('.trip-panel').forEach(panel=>panel.classList.remove('active'));
+        document.getElementById('panel-'+trip).classList.add('active');
+        document.getElementById('weather-'+trip).classList.add('active');
+      }));
+    }
     createPetals(26);
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-    initWeather();
+    updateCountdown('japan',trips.japan.targetTime); updateCountdown('seoul',trips.seoul.targetTime);
+    setInterval(()=>{updateCountdown('japan',trips.japan.targetTime); updateCountdown('seoul',trips.seoul.targetTime)},1000);
+    setupTabs(); initTripWeather('japan'); initTripWeather('seoul');
   </script>
 </body>
 </html>
